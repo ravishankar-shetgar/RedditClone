@@ -1,4 +1,7 @@
 {
   "name": "RedditClone",
-  "displayName": "RedditClone"
+  "displayName": "RedditClone",
+  "expo": {
+    "scheme": "com.redditclone"
+  }
 }

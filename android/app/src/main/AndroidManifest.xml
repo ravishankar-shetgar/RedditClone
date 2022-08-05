@@ -20,6 +20,9 @@
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
+            <!-- Accepts URIs that begin with "com.redditclone://redirect-sign-in -->
+            <data android:scheme="com.redditclone"
+            android:host="redirect-sign-in" />
         </intent-filter>
       </activity>
     </application>
