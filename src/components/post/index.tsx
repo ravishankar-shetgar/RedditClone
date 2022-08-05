@@ -1,6 +1,6 @@
 import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
-import {View, Text, Button, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import CommentIcon from '../../assets/svgs/comment-icon';
 import UpvoteIcon from '../../assets/svgs/upvote-icon';
@@ -21,10 +21,15 @@ const Post = (props: Props): JSX.Element => {
     subreddit_name_prefixed: subredditName,
     ups: upvoteCount,
     num_comments: commentCount,
+    id,
   } = props.data.data;
 
   const showComments = () => {
-    props.navigation.navigate('PostCommentsScreen');
+    props.navigation.navigate('PostCommentsScreen', {
+      postTitle: title,
+      postId: id,
+      subRedditName: subredditName,
+    });
   };
 
   return (

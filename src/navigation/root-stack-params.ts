@@ -1,6 +1,10 @@
 export type AppStackParamList = {
   HomeFeedScreen: undefined;
-  PostCommentsScreen: undefined;
+  PostCommentsScreen: {
+    postTitle: string;
+    postId: string;
+    subRedditName: string;
+  };
 };
 
 export type AuthStackParamsList = {

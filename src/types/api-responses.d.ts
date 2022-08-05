@@ -1,4 +1,4 @@
-declare module ApiResponses {
+declare namespace ApiResponses {
   interface FetchPostsFromSubreddit {
     kind: string;
     data: {
@@ -8,6 +8,19 @@ declare module ApiResponses {
       geo_filter?: any;
       children: ComponentData.PostData[];
       before?: any;
+    };
+  }
+
+  interface FetchPostComments {
+    kind: string;
+    data: {
+      after?: any;
+      dist?: number;
+      modhash?: any;
+      geo_filter: string;
+      children: ComponentData.CommentData[];
+      before?: any;
+      is_truncated?: boolean;
     };
   }
 }

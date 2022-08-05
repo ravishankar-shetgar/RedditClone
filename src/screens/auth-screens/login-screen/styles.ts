@@ -26,10 +26,11 @@ const styles = StyleSheet.create({
   loginButton: {
     alignSelf: 'center',
     alignContent: 'center',
+    borderWidth: 4,
+    borderColor: APP_THEME.colors.redditBrandColor,
     alignItems: 'center',
     padding: 15,
     paddingHorizontal: 18,
-    backgroundColor: APP_THEME.colors.redditBrandColor,
     borderRadius: 10,
     justifyContent: 'center',
   },
