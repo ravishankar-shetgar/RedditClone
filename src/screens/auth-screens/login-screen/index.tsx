@@ -1,38 +1,42 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import * as WebBrowser from 'expo-web-browser';
-import {makeRedirectUri, useAuthRequest} from 'expo-auth-session';
+import {makeRedirectUri, ResponseType, useAuthRequest} from 'expo-auth-session';
 import styles from './styles';
 import RedditLogoWithName from '../../../assets/svgs/reddit-logo-with-name';
 import FastImage from 'react-native-fast-image';
+import {useDispatch, useSelector} from 'react-redux';
+import {setUserLoggedIn} from '../../../redux/user-state/action';
 
-WebBrowser.maybeCompleteAuthSession();
+const APP_CLIENT_ID = 'TzQVwvcWdp0PA_TdwziAWw';
+const APP_REDIRECT_URI = 'com.redditclone://redirect-sign-in';
 
-// Endpoint
-const discovery = {
+const END_POINTS = {
   authorizationEndpoint: 'https://www.reddit.com/api/v1/authorize.compact',
-  tokenEndpoint: 'https://www.reddit.com/api/v1/access_token',
 };
 
 const LoginScreen = () => {
+  const dispatch = useDispatch();
+
   const [request, response, promptAsync] = useAuthRequest(
     {
-      clientId: 'TzQVwvcWdp0PA_TdwziAWw',
-      scopes: ['identity'],
+      responseType: ResponseType.Token,
+      clientId: APP_CLIENT_ID,
+      scopes: ['identity', 'mysubreddits', 'read'],
       redirectUri: makeRedirectUri({
-        // For usage in bare and standalone
-        native: 'com.redditclone://redirect-sign-in',
+        native: APP_REDIRECT_URI,
       }),
     },
-    discovery,
+    END_POINTS,
   );
 
   React.useEffect(() => {
-    console.log(response, '----------response------------');
-
     if (response?.type === 'success') {
-      const {code} = response.params;
-      console.log(code, '-----------code-----------');
+      // user has successfully logged in
+      const token = response.params.access_token;
+      dispatch(setUserLoggedIn(token));
+    } else {
+      // login attempt failed / cancelled
+      console.log(response);
     }
   }, [response]);
 
@@ -54,6 +58,7 @@ const LoginScreen = () => {
       />
 
       <TouchableOpacity
+        disabled={!request}
         style={styles.loginButton}
         onPress={() => {
           promptAsync();

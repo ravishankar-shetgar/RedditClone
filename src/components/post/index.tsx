@@ -35,7 +35,7 @@ const Post = (props: Props): JSX.Element => {
   return (
     <TouchableOpacity
       style={styles.container}
-      activeOpacity={0.7}
+      activeOpacity={0.9}
       onPress={showComments}>
       <View style={styles.header}>
         <Text style={styles.subredditName}>{subredditName}</Text>

@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     alignContent: 'center',
     alignItems: 'center',
-    borderColor: 'white',
+    borderColor: APP_THEME.colors.redditBrandColor,
     paddingBottom: 10,
     marginBottom: 15,
   },
