@@ -3,6 +3,7 @@ import {all, put, takeLatest, call, select} from '@redux-saga/core/effects';
 import {fetchUserSubredditsSuccess} from './action';
 import {UserActionsType} from './types';
 import {getAccessToken} from './selector';
+import {fetchPostsRequest} from '../posts-state/action';
 
 const getSubreddits = (accessToken: string) =>
   axios.get<ApiResponses.FetchListOfUserSubreddits[]>(
@@ -25,6 +26,7 @@ function* fetchSubredditsSaga() {
     });
 
     yield put(fetchUserSubredditsSuccess(subreddits));
+    yield put(fetchPostsRequest());
   } catch (e) {
     console.log(e);
   }

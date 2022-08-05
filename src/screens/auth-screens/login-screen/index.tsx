@@ -4,7 +4,7 @@ import {makeRedirectUri, ResponseType, useAuthRequest} from 'expo-auth-session';
 import styles from './styles';
 import RedditLogoWithName from '../../../assets/svgs/reddit-logo-with-name';
 import FastImage from 'react-native-fast-image';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {setUserLoggedIn} from '../../../redux/user-state/action';
 
 const APP_CLIENT_ID = 'TzQVwvcWdp0PA_TdwziAWw';

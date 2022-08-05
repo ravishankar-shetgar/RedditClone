@@ -8,9 +8,11 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
+import {useSelector} from 'react-redux';
 import BackArrowSvg from '../../../assets/svgs/back-arrow-icon';
 import Comment from '../../../components/comment';
 import {AppStackParamList} from '../../../navigation/root-stack-params';
+import {IState} from '../../../redux/state';
 import styles from './styles';
 
 interface Props {
@@ -22,6 +24,9 @@ const PostCommentsScreen: React.FC<Props> = props => {
   const {navigation, route} = props;
   const {postTitle, postId, subRedditName} = route.params;
 
+  const accessToken = useSelector(
+    (state: IState) => state.userState.accessToken,
+  );
   const [commentData, setCommentData] = useState<
     {
       comment: string;
@@ -42,8 +47,7 @@ const PostCommentsScreen: React.FC<Props> = props => {
         `https://oauth.reddit.com/${subRedditName}/comments/${postId}?depth=1&limit=50`,
         {
           headers: {
-            Authorization: `Bearer 2104316996386-wOUFe6u6RzyA3pnsPtzxZsk8iqwaqw`,
-            'User-Agent': 'reddit-clone-app',
+            Authorization: `Bearer ${accessToken}`,
           },
         },
       )

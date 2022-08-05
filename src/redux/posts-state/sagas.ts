@@ -8,6 +8,9 @@ const getPosts = (subreddit: string, accessToken: string) => {
   return axios.get<ApiResponses.FetchPostsFromSubreddit>(
     `https://oauth.reddit.com/${subreddit}/hot`,
     {
+      params: {
+        limit: 60,
+      },
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import APP_THEME from '../../../styles/theme';
 
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
   statusBarPlaceHolder: {
     backgroundColor: APP_THEME.colors.screenBgColor,
-    height: getStatusBarHeight(),
+    height: Platform.OS === 'ios' ? getStatusBarHeight() : 0,
     width: '100%',
   },
   subredditLogo: {
@@ -36,6 +36,13 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     marginBottom: 20,
     borderBottomWidth: 1,
+  },
+  loader: {
+    height: 200,
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'center',
+    width: '100%',
   },
 });
 

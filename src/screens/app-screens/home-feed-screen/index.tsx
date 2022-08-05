@@ -1,10 +1,9 @@
 import {NavigationProp} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, ActivityIndicator} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import Post from '../../../components/post';
 import {AppStackParamList} from '../../../navigation/root-stack-params';
-import {fetchPostsRequest} from '../../../redux/posts-state/action';
 import {IState} from '../../../redux/state';
 import {fetchUserSubredditsRequest} from '../../../redux/user-state/action';
 import styles from './styles';
@@ -19,11 +18,14 @@ const HomeFeedScreen: React.FC<Props> = props => {
   const selectedSubreddit = useSelector(
     (state: IState) => state.postsState.currentSelectedSubreddit,
   );
+  const isFetchingPosts = useSelector(
+    (state: IState) => state.postsState.isFetching,
+  );
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchUserSubredditsRequest());
-    dispatch(fetchPostsRequest());
   }, []);
 
   const renderPost = ({item}: {item: ComponentData.PostData}) => {
@@ -40,11 +42,15 @@ const HomeFeedScreen: React.FC<Props> = props => {
           <Text style={styles.title}>{selectedSubreddit}</Text>
         </View>
 
-        <FlatList
-          data={posts}
-          renderItem={renderPost}
-          keyExtractor={item => item.data.id}
-        />
+        {!isFetchingPosts ? (
+          <FlatList
+            data={posts}
+            renderItem={renderPost}
+            keyExtractor={item => item.data.id}
+          />
+        ) : (
+          <ActivityIndicator size={20} color={'white'} style={styles.loader} />
+        )}
       </View>
     </>
   );
