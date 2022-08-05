@@ -9,8 +9,20 @@ const Stack = createStackNavigator<AppStackParamList>();
 const AppStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="HomeFeedScreen" component={HomeFeedScreen} />
-      <Stack.Screen name="PostCommentsScreen" component={PostCommentsScreen} />
+      <Stack.Screen
+        name="HomeFeedScreen"
+        component={HomeFeedScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="PostCommentsScreen"
+        component={PostCommentsScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
