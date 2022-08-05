@@ -1,7 +1,10 @@
 import React from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import {makeRedirectUri, useAuthRequest} from 'expo-auth-session';
+import styles from './styles';
+import RedditLogoWithName from '../../../assets/svgs/reddit-logo-with-name';
+import FastImage from 'react-native-fast-image';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -34,15 +37,29 @@ const LoginScreen = () => {
   }, [response]);
 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Login Screen</Text>
-      <Button
-        disabled={!request}
-        title="Login"
+    <View style={styles.container}>
+      <View style={styles.appLogo}>
+        <RedditLogoWithName />
+      </View>
+
+      <Text style={styles.title}>Reddit Clone App</Text>
+      <Text style={styles.subTitle}>
+        {`Enjoy your favorite subreddits\non your mobile device.`}
+      </Text>
+
+      <FastImage
+        style={styles.image}
+        resizeMode={'contain'}
+        source={require('./../../../assets/images/login-screen.png')}
+      />
+
+      <TouchableOpacity
+        style={styles.loginButton}
         onPress={() => {
           promptAsync();
-        }}
-      />
+        }}>
+        <Text style={styles.buttonText}>Login with your Reddit Account</Text>
+      </TouchableOpacity>
     </View>
   );
 };
